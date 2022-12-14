@@ -11,3 +11,7 @@ def privacy(request):
 
 def terms(request):
     return render(request, 'core/terms.html')
+
+
+def plans(request):
+    return render(request, 'core/plans.html')
