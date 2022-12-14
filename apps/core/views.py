@@ -7,3 +7,7 @@ def frontpage(request):
 
 def privacy(request):
     return render(request, 'core/privacy.html')
+
+
+def terms(request):
+    return render(request, 'core/terms.html')
