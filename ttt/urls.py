@@ -18,7 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from apps.core.views import frontpage, privacy, terms, plans
-from apps.userprofile.views import signup
+from apps.userprofile.views import signup, myaccount
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -30,4 +30,5 @@ urlpatterns = [
     
     path("signup/", signup, name="signup"),
     path("login/", auth_views.LoginView.as_view(template_name="userprofile/login.html"), name="login"),
+    path("myaccount/", myaccount, name="myaccount"),
 ]
