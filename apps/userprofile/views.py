@@ -1,8 +1,17 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
 from apps.userprofile.models import Userprofile
+
+
+
+@login_required
+def myaccount(request):
+    return render(request, 'userprofile/myaccount.html')
+
 
 def signup(request):
     if request.method == 'POST':
