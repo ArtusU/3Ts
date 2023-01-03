@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
-from apps.core.views import frontpage, privacy, terms, plans
-from apps.userprofile.views import signup
+from apps.core.views import frontpage, privacy, terms, plans, signup
 
 urlpatterns = [
     path("admin/", admin.site.urls),
