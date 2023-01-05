@@ -5,6 +5,13 @@ from .models import Team
 
 
 @login_required
+def team(request, team_id):
+    team = get_object_or_404(Team, pk=team_id, status=Team.ACTIVE, members__in=[request.user])
+
+    return render(request, 'team/team.html', {'team': team})
+
+
+@login_required
 def add(request):
     if request.method == 'POST':
         title = request.POST.get('title')
