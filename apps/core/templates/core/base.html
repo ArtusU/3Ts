@@ -17,7 +17,7 @@
 
             <div class="navbar-menu">
                 <div class="navbar-end">
-
+                    {% if not request.user.is_authenticated %}
                     <div class="navbar-item">
                         <div class="buttons">
                             <a class="button is-success" href="{% url 'plans' %}">
@@ -26,6 +26,16 @@
                             </a>
                         </div>
                     </div>
+                    {% else %}
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-success" href="{% url 'project:projects' %}">
+                                <span class="icon"><i class="fas fa-university"></i></span>
+                                <span>Projects</span>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
 
                     <div class="navbar-item">
                         <div class="buttons">
