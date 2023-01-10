@@ -10,9 +10,9 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'myaccount'
-LOGOUT_REDIRECT_URL = 'frontpage'
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "myaccount"
+LOGOUT_REDIRECT_URL = "frontpage"
 
 
 # Application definition
@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "apps.core",
+    "apps.project",
     "apps.team",
     "apps.userprofile",
 ]
@@ -52,7 +53,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "apps.team.context_processors.active_team"
+                "apps.team.context_processors.active_team",
             ],
         },
     },
