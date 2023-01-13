@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ task.title }} | {% endblock %}
+
+{% block content %}
+    <div id="project-app">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="{% url 'project:projects' %}">Projects</a></li>
+                <li><a href="{% url 'project:project' project.id %}">{{ project.title }}</a></li>
+                <li class="is-active"><a href="{% url 'project:task' project.id task.id %}" aria-current="page">{{ task.title }}</a></li>
+            </ul>
+        </nav>
+
+        <div class="columns">
+            <div class="column">
+                <h1 class="title">{{ task.title }} ({{ task.get_status_display }})</h1>
+
+                <a href="#" class="button is-warning">Edit task</a>
+            
+                <h2 class="subtitle mt-6">Register time</h2>
+
+                <form method="post" action=".">
+                    # TODO
+                </form>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-12">
+                <hr>
+
+                <h2 class="subtitle">Logged entries</h2>
+
+                # TODO
+            </div>
+        </div>
+    </div>
+{% endblock %}
