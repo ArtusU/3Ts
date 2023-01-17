@@ -17,7 +17,7 @@
             <div class="column">
                 <h1 class="title">{{ task.title }} ({{ task.get_status_display }})</h1>
 
-                <a href="#" class="button is-warning">Edit task</a>
+                <a href="{% url 'project:edit_task' project.id task.id %}" class="button is-warning">Edit task</a>
             
                 <h2 class="subtitle mt-6">Register time</h2>
 
