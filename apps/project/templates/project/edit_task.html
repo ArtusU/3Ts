@@ -34,8 +34,14 @@
 
                     <div class="field">
                         <label>Status</label>
-
-                        TODO
+                        <div class="control">
+                            <div class="select">
+                                <select name="status" id="id_status">
+                                    <option value="todo"{% if task.status == 'todo' %} selected{% endif %}>Todo</option>
+                                    <option value="done"{% if task.status == 'done' %} selected{% endif %}>Done</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="field">
