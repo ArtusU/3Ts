@@ -18,7 +18,7 @@ class Project(models.Model):
         return self.title
     
     def registered_time(self):
-        return 0
+        return sum(entry.minutes for entry in self.entries.all())
     
     def num_tasks_todo(self):
         return self.tasks.filter(status=Task.TODO).count()
@@ -49,7 +49,7 @@ class Task(models.Model):
         return self.title
     
     def registered_time(self):
-        return 0
+        return sum(entry.minutes for entry in self.entries.all())
     
     
 class Entry(models.Model):
