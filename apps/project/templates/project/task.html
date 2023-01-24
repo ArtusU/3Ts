@@ -71,7 +71,41 @@
 
                 <h2 class="subtitle">Logged entries</h2>
 
-                # TODO
+                {% if task.entries.all %}
+                    <table class="table is-fullwidth" style="text-align: left;">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>User</th>
+                                <th>Time</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for entry in task.entries.all %}
+                                <tr>
+                                    <td>{{ entry.created_at }}</td>
+                                    <td>{% firstof entry.created_by.get_full_name entry.created_by.username %}</td>
+                                    <td>{{ entry.minutes }}</td>
+                                    <td>
+                                        <a href="#">Edit</a>
+                                        <a href="#">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <th colspan="2">Total</th>
+                                <th colspan="2">{{ task.registered_time }}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                {% else %}
+                    <p>No entries yet...</p>
+                {% endif %}
             </div>
         </div>
     </div>
