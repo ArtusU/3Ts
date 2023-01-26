@@ -29,6 +29,14 @@
                     {% else %}
                     <div class="navbar-item">
                         <div class="buttons">
+                            <a class="button is-success" href="{% url 'dashboard' %}">
+                                <span class="icon"><i class="fas fa-columns"></i></span>
+                                <span>Dasboard</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="navbar-item">
+                        <div class="buttons">
                             <a class="button is-success" href="{% url 'project:projects' %}">
                                 <span class="icon"><i class="fas fa-university"></i></span>
                                 <span>Projects</span>
