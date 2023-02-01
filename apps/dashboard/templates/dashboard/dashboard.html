@@ -47,30 +47,42 @@
 
         <div class="column is-6">
             <div class="notification">
-                <h2 class="subtitle">Your time this month</h2>
-            
-                    <table class="table is-fullwidth" style="text-align: left;">
-                        <thead>
+                <h2 class="subtitle">Your time {% if user_num_months is 0 %}this month{% else %}{{ user_month|date:"Y-m"}}{% endif %}</h2>
+                {% if time_for_user_and_month %}
+                <table class="table is-fullwidth" style="text-align: left;">
+                    <thead>
+                        <tr>
+                            <td>Project</td>
+                            <td>Time</td>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for project in all_projects %}
+                            {% if project.time_for_user_and_project_and_month > 0 %}
                             <tr>
-                                <td>Project</td>
-                                <td>Time</td>
+                                <td>{{ project.title }}</td>
+                                <td>{{ project.time_for_user_and_project_and_month }}</td>
                             </tr>
-                        </thead>
-
-                        <tbody>
-                                <tr>
-                                    <td>#</td>
-                                    <td>#</td>
-                                </tr>
-                        </tbody>
-
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                        
                         <tfoot>
-                            <tr>
-                                <td>Total</td>
-                                <td>#</td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                        <tr>
+                            <td>Total</td>
+                            <td>{{ time_for_user_and_month }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                {% else %}
+                <p class="block">No entries this month</p>
+                {% endif %}
+
+                <a href="?user_num_months={{ user_num_months|add:'1' }}" class="mt-4">Previous</a>
+                {% if user_num_months > 0 %}
+                <a href="?user_num_months={{ user_num_months|add:'-1' }}" class="mt-4">Next</a>
+                {% endif %}
             </div>
         </div>
 
