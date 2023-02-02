@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load dashboardextras %}
 
 {% block title %}{{ project.title }} | {% endblock %}
 
@@ -49,7 +50,7 @@
                         <div class="notification">
                             <h3 class="is-size-5">{{ task.title }}</h3>
 
-                            <p>Registered time: {{ task.registered_time }}</p>
+                            <p>Registered time: {{ task.registered_time|format_minutes }}</p>
 
                             <hr>
 
