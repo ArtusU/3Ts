@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load dashboardextras %}
 
 {% block title %}Dashboard | {% endblock %}
 
@@ -22,7 +23,7 @@
                         <tr>
                             <td>{{ entry.task.title }}</td>
                             <td>{{ entry.project.title }}</td>
-                            <td>{{ entry.minutes}}min</td>
+                            <td>{{ entry.minutes|format_minutes}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -30,7 +31,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="2">Total</td>
-                            <td>{{ time_for_user_and_date }}min</td>
+                            <td>{{ time_for_user_and_date|format_minutes }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -62,7 +63,7 @@
                             {% if project.time_for_user_and_project_and_month > 0 %}
                             <tr>
                                 <td>{{ project.title }}</td>
-                                <td>{{ project.time_for_user_and_project_and_month }}</td>
+                                <td>{{ project.time_for_user_and_project_and_month|format_minutes }}</td>
                             </tr>
                             {% endif %}
                         {% endfor %}
@@ -71,7 +72,7 @@
                         <tfoot>
                         <tr>
                             <td>Total</td>
-                            <td>{{ time_for_user_and_month }}</td>
+                            <td>{{ time_for_user_and_month|format_minutes }}</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -130,7 +131,7 @@
                             {% for member in members %}
                                 <tr>
                                     <td>{% firstof member.get_full_name member.username %}</a></td>
-                                    <td>{{ member.time_for_user_and_team_and_month }}</td>
+                                    <td>{{ member.time_for_user_and_team_and_month|format_minutes }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
