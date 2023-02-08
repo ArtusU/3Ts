@@ -14,6 +14,15 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "myaccount"
 LOGOUT_REDIRECT_URL = "frontpage"
 
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")  # apikey
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_EMAIL_FROM = "Admin <noreply@TeamsTimeTracker.com>"
+
+WEBSITE_URL = "http://127.0.0.1:8000"
+ACCEPTATION_URL = WEBSITE_URL + "/signup/"
 
 # Application definition
 
