@@ -21,6 +21,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_EMAIL_FROM = "Admin <noreply@TeamsTimeTracker.com>"
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 WEBSITE_URL = "http://127.0.0.1:8000"
 ACCEPTATION_URL = WEBSITE_URL + "/signup/"
 
