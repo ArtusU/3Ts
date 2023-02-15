@@ -21,6 +21,10 @@
                 <p>{{ member.username }}</p>
             {% endfor %}
 
+            {% if request.user == team.created_by %}
+                <a href="{% url 'team:invite' %}" class="button is-primary">Invite users</a>
+            {% endif %}
+
             
         </div>
 

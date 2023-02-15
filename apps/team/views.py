@@ -1,8 +1,12 @@
+import random
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Team
+from apps.team.utilities import send_invitation
+
+from .models import Invitation, Team
 
 
 @login_required
@@ -56,3 +60,28 @@ def edit(request):
             return redirect('team:team', team_id=team.id)
 
     return render(request, 'team/edit.html', {'team': team})
+
+
+@login_required
+def invite(request):
+    team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+
+        if email:
+            invitations = Invitation.objects.filter(team=team, email=email)
+
+            if not invitations:
+                code = ''.join(random.choice('abcdefghijklmnopqrstuvwxyz123456789') for i in range(4))
+                invitation = Invitation.objects.create(team=team, email=email, code=code)
+
+                messages.info(request, 'The user was invited')
+
+                send_invitation(email, code, team)
+
+                return redirect('team:team', team_id=team.id)
+            else:
+                messages.info(request, 'The users has already been invited')
+
+    return render(request, 'team/invite.html', {'team': team})
