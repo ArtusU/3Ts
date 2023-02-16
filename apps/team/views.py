@@ -12,9 +12,9 @@ from .models import Invitation, Team
 @login_required
 def team(request, team_id):
     team = get_object_or_404(Team, pk=team_id, status=Team.ACTIVE, members__in=[request.user])
+    invitations = team.invitations.filter(status=Invitation.INVITED)
 
-    return render(request, 'team/team.html', {'team': team})
-
+    return render(request, 'team/team.html', {'team': team, 'invitations': invitations})
 
 @login_required
 def activate_team(request, team_id):
