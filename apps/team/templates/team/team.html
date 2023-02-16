@@ -25,6 +25,14 @@
                 <a href="{% url 'team:invite' %}" class="button is-primary">Invite users</a>
             {% endif %}
 
+            <hr>
+
+            <h2 class="subtitle mt-6">Invited members</h2>
+
+            {% for member in invitations %}
+                <p>{{ member.email }} - {{ member.date_sent|timesince }} ago</p>
+            {% endfor %}
+
             
         </div>
 
