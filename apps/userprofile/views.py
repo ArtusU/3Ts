@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 
-from apps.team.models import Team
+from apps.team.models import Invitation, Team
+from apps.team.utilities import send_invitation_accepted
 
 
 @login_required
@@ -25,4 +26,35 @@ def edit_profile(request):
         return redirect('myaccount')
     
     return render(request, 'userprofile/edit_profile.html')
+
+
+@login_required
+def accept_invitation(request):
+    if request.method == 'POST':
+        code = request.POST.get('code')
+
+        invitations = Invitation.objects.filter(code=code, email=request.user.email)
+
+        if invitations:
+            invitation = invitations[0]
+            invitation.status = Invitation.ACCEPTED
+            invitation.save()
+
+            team = invitation.team
+            team.members.add(request.user)
+            team.save()
+
+            userprofile = request.user.userprofile
+            userprofile.active_team_id = team.id
+            userprofile.save()
+
+            messages.info(request, 'Invitation accepted')
+
+            send_invitation_accepted(team, invitation)
+
+            return redirect('team:team', team_id=team.id)
+        else:
+            messages.info(request, 'Invitation was not found')
+    else:
+        return render(request, 'userprofile/accept_invitation.html')
 
