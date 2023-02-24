@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-    <div class="navbar-app">
+    <div id="navbar-app">
         <nav class="navbar {% if request.user.is_authenticated %} is-primary{% else %} is-light{% endif %}">
             <div class="navbar-brand">
                 <a href="/" class="navbar-item">3Ts</a>
@@ -43,25 +43,23 @@
                             </a>
                         </div>
                     </div>
-                    {% endif %}
-
-                    <div class="navbar-item">
+                    <div class="navbar-item" v-if="!trackingTime">
                         <div class="buttons">
-                            <a class="button is-success">
+                            <a class="button is-success" @click="startTimer()">
                                 <span class="icon"><i class="fas fa-stopwatch"></i></span>
                                 <span>Start</span>
                             </a>
                         </div>
                     </div>
-
-                    <div class="navbar-item">
+                    <div class="navbar-item" v-else>
                         <div class="buttons">
-                            <a class="button is-warning">
+                            <a class="button is-warning" @click="stopTimer()">
                                 <span class="icon"><i class="fas fa-stopwatch"></i></span>
-                                <span>4s (stop)</span>
+                                <span>[[ readableSeconds ]] (stop)</span>
                             </a>
                         </div>
                     </div>
+                    {% endif %}
 
                     <div class="navbar-item">
                         <div class="buttons">
@@ -118,6 +116,57 @@
     <!-- Scripts -->
     <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
+
+    <script>
+        var NavbarApp = {
+            data() {
+                return {
+                    seconds: {{ active_entry_seconds }},
+                    trackingTime: false,
+                    showTrackingModal: false,
+                    timer: null,
+                    entryID: 0,
+                    startTime: '{{ start_time }}'
+                }
+            },
+            delimiters: ['[[', ']]'],
+            methods: {
+                startTimer() {
+
+                },
+                stopTimer() {
+
+                },
+                discardTimer() {
+
+                }
+            },
+            mounted() {
+                if (this.seconds !== 0) {
+                    this.trackingTime = true
+                    this.timer = setInterval(() => {
+                        this.seconds = (new Date() - new Date(this.startTime)) / 1000
+                    }, 1000)
+                }
+            },
+            computed: {
+                readableSeconds() {
+                    const d = Number(this.seconds);
+                    const h = Math.floor(d / 3600);
+                    const m = Math.floor(d % 3600 / 60);
+                    const s = Math.floor(d % 3600 % 60);
+
+                    const hDisplay = h > 0 ? h + (h == 1 ? "h, " : "h, ") : "";
+                    const mDisplay = m > 0 ? m + (m == 1 ? "m, " : "m, ") : "";
+                    const sDisplay = s >= 0 ? s + (s == 1 ? "s" : "s") : "";
+
+                    return hDisplay + mDisplay + sDisplay; 
+                }
+            }
+        }
+
+        Vue.createApp(NavbarApp).mount('#navbar-app')
+    </script>
 
     {% block scripts %}
     {% endblock %}
