@@ -1,5 +1,7 @@
 from django.urls import path
 
+
+from .api import api_start_timer, api_stop_timer, api_discard_timer
 from .views import (
     projects,
     project,
@@ -28,4 +30,7 @@ urlpatterns = [
         delete_entry,
         name="delete_entry",
     ),
+    path("api/start_timer/", api_start_timer, name="api_start_timer"),
+    path("api/stop_timer/", api_stop_timer, name="api_stop_timer"),
+    path("api/discard_timer/", api_discard_timer, name="api_discard_timer"),
 ]
