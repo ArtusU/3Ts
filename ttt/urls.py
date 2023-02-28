@@ -19,5 +19,5 @@ urlpatterns = [
         name="login",
     ),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    path("dasboard/", include("apps.dashboard.urls")),
+    path("dashboard/", include("apps.dashboard.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
