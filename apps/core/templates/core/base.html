@@ -77,10 +77,25 @@
                                 {% endif %}
                         </div>
                     </div>
-
                 </div>
             </div>
         </nav>
+        <div class="modal" :class="{'is-active': showTrackingModal}">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <div class="modal-card-head">
+                    <p class="modal-card-title">Tracked time</p>
+                </div>
+                <div class="modal-card-body">
+                    <p>You have tracked [[ readableSeconds ]]</p>
+                </div>
+                <footer class="modal-card-foot">
+                    <button class="button is-primary" @click="addToTask()">Add to task</button>
+                    <button class="button is-success" @click="addLater()">Add later</button>
+                    <button class="button is-danger" @click="discardTimer()">Discard</button>
+                </footer>
+            </div>
+        </div>
     </div>
     <section class="section">
         {% if messages %}
@@ -187,6 +202,10 @@
                     this.seconds = 0
                     this.showTrackingModal = false
                 },
+                addToTask() {
+                    console.log('addToTask')
+                    window.location.href = '/dashboard/projects/track_entry/' + this.entryID + '/'
+                }
             },
             mounted() {
                 if (this.seconds !== 0) {
