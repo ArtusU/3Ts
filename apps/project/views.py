@@ -189,3 +189,14 @@ def delete_entry(request, project_id, task_id, entry_id):
     messages.info(request, "The entry was deleted!")
 
     return redirect("project:task", project_id=project.id, task_id=task.id)
+
+
+@login_required
+def delete_untracked_entry(request, entry_id):
+    team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
+    entry = get_object_or_404(Entry, pk=entry_id, team=team)
+    entry.delete()
+
+    messages.info(request, 'The entry was deleted!')
+
+    return redirect('dashboard')

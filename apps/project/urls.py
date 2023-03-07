@@ -10,6 +10,7 @@ from .views import (
     edit_task,
     edit_entry,
     delete_entry,
+    delete_untracked_entry,
 )
 
 app_name = "project"
@@ -29,6 +30,11 @@ urlpatterns = [
         "<int:project_id>/<int:task_id>/<int:entry_id>/delete/",
         delete_entry,
         name="delete_entry",
+    ),
+    path(
+        "<int:entry_id>/delete_untracked_entry/",
+        delete_untracked_entry,
+        name="delete_untracked_entry",
     ),
     path("api/start_timer/", api_start_timer, name="api_start_timer"),
     path("api/stop_timer/", api_stop_timer, name="api_stop_timer"),
