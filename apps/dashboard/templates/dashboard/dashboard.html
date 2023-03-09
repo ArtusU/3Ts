@@ -114,7 +114,7 @@
                                     {% endif %}
                                 </td>
                                 <td>{% if entry.minutes == 0 %}In progress{% else %}Untracked{% endif %}</td>
-                                <td><a href="#">Add to task</a></td>
+                                <td><a href="{% url 'project:track_entry' entry.id %}">Add to task</a></td>
                                 <td><a href="{% url 'project:delete_untracked_entry' entry.id %}">Delete</a></td>
                             </tr>
                         {% endfor %}
