@@ -1,4 +1,4 @@
-# Teams Time Tracker SaaS 3T's
+# 3T's | Teams Time Tracker SaaS
 
 
 3T's is a user-friendly time tracking SaaS built with Python Django, HTML, VueJS, and Bulma CSS. The platform offers secure user authentication with simple Vue validation and three different plans: Free, Basic, and Pro.
