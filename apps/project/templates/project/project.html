@@ -18,14 +18,16 @@
                 <h1 class="title">{{ project.title }}</h1>
 
                 <div class="buttons">
+                    {% if team.plan.max_tasks_per_project > project.tasks.count %}
                     <a @click="showAddTaskModal = !showAddTaskModal" class="button is-success">Add task</a>
+                    {% else %}
                     <div class="notification is-warning">
                         This team has reached the limit of tasks for this project.<br>
-                            <a href="#">Upgrade plan</a>
+                            <a href="{% url 'team:plans' %}">Upgrade plan</a>
                             Contact your team owner...
                     </div>
                     <a href="{% url 'project:edit_project' project.id %}" class="button is-warning">Edit project</a>
-                </div>
+                    {% endif %}
             </div>
         </div>
 
