@@ -23,6 +23,15 @@ DEFAULT_EMAIL_FROM = "Admin <noreply@TeamsTimeTracker.com>"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+
+STRIPE_BASIC_PRICE_ID = config("STRIPE_BASIC_PRICE_ID")
+STRIPE_PRO_PRICE_ID = config("STRIPE_PRO_PRICE_ID")
+
+STRIPE_WEBHOOK_KEY = config("STRIPE_WEBHOOK_KEY")
+
+
 WEBSITE_URL = "http://127.0.0.1:8000"
 ACCEPTATION_URL = WEBSITE_URL + "/signup/"
 
