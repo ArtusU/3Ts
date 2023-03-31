@@ -1,12 +1,14 @@
 import random
+from django.conf import settings
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+import stripe
 
 from apps.team.utilities import send_invitation
 
-from .models import Invitation, Team
+from .models import Invitation, Plan, Team
 
 
 @login_required
@@ -90,8 +92,25 @@ def invite(request):
 @login_required
 def plans(request):
     team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
+    error = ''
+
+    if request.GET.get('cancel_plan', ''):
+        try:
+            plan_default = Plan.objects.get(is_default=True)
+
+            team.plan = plan_default
+            team.plan_status = Team.PLAN_CANCELED
+            team.save()
+
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            stripe.Subscription.delete(team.stripe_subscription_id)
+        except Exception:
+            error = 'Something went wrong with the cancelation. Please try again!'
+
     context = {
         'team': team,
+        'error': error,
+        'stripe_pub_key': settings.STRIPE_PUBLISHABLE_KEY
     }
 
     return render(request, 'team/plans.html', context)
