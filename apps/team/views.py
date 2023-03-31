@@ -1,3 +1,4 @@
+import datetime
 import random
 from django.conf import settings
 
@@ -114,3 +115,23 @@ def plans(request):
     }
 
     return render(request, 'team/plans.html', context)
+
+
+@login_required
+def plans_thankyou(request):
+    error = ''
+
+    try:
+        team = get_object_or_404(Team, pk=request.user.userprofile.active_team_id, status=Team.ACTIVE)
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        subscription = stripe.Subscription.retrieve(team.stripe_subscription_id)
+        product = stripe.Product.retrieve(subscription.plan.product)
+
+        team.plan_status = Team.PLAN_ACTIVE
+        team.plan_end_date = datetime.fromtimestamp(subscription.current_period_end)
+        team.plan = Plan.objects.get(title=product.name)
+        team.save()
+    except Exception:
+        error = 'There something wrong. Please try again!'
+
+    return render(request, 'team/plans_thankyou.html', {'error': error})
